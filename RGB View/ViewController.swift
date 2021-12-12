@@ -40,14 +40,13 @@ class ViewController: UIViewController {
     blueSlider.minimumTrackTintColor = .blue
   }
   
-
+  // MARK: - IB Actions
   @IBAction func slidersAction() {
     let redSliderValue = CGFloat(redSlider.value)
     let greenSliderValue = CGFloat(greenSlider.value)
     let blueSliderValue = CGFloat(blueSlider.value)
-    let alphaValue = CGFloat(redSliderValue + greenSliderValue + blueSliderValue)
     
-    coloredView.backgroundColor = UIColor(red: redSliderValue, green: greenSliderValue, blue: blueSliderValue, alpha: alphaValue)
+    coloredView.backgroundColor = UIColor(red: redSliderValue, green: greenSliderValue, blue: blueSliderValue, alpha: 1.0)
     
     redValueLabel.text = String(round(redSlider.value * 100) / 100)
     greenValueLabel.text = String(round(greenSlider.value * 100) / 100)
