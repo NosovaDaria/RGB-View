@@ -26,32 +26,48 @@ class ViewController: UIViewController {
     super.viewDidLoad()
     
     coloredView.layer.cornerRadius = 32
-    
-    redSlider.value = 0
-    greenSlider.value = 0
-    blueSlider.value = 0
-    
+  
+    setupSlider()
     redValueLabel.text = String(redSlider.value)
     greenValueLabel.text = String(greenSlider.value)
     blueValueLabel.text = String(blueSlider.value)
+    
+    setupView()
+  }
+  
+  //MARK: - Private Properties
+  private func setupSlider() {
+    redSlider.value = 0
+    greenSlider.value = 0
+    blueSlider.value = 0
     
     redSlider.minimumTrackTintColor = .red
     greenSlider.minimumTrackTintColor = .green
     blueSlider.minimumTrackTintColor = .blue
   }
   
-  // MARK: - IB Actions
-  @IBAction func slidersAction() {
+  private func setupView() {
     let redSliderValue = CGFloat(redSlider.value)
     let greenSliderValue = CGFloat(greenSlider.value)
     let blueSliderValue = CGFloat(blueSlider.value)
     
-    coloredView.backgroundColor = UIColor(red: redSliderValue, green: greenSliderValue, blue: blueSliderValue, alpha: 1.0)
+    coloredView.backgroundColor = UIColor (
+      red: redSliderValue,
+      green: greenSliderValue,
+      blue: blueSliderValue,
+      alpha: 1.0
+    )
+  }
+  
+  // MARK: - IB Actions
+  @IBAction func slidersAction() {
+    setupView()
     
     redValueLabel.text = String(round(redSlider.value * 100) / 100)
     greenValueLabel.text = String(round(greenSlider.value * 100) / 100)
     blueValueLabel.text = String(round(blueSlider.value * 100) / 100)
     
   }
+  
   
 }

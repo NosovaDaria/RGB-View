@@ -16,7 +16,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		4BC7E3702763F39200F8A5D7 /* RGB View.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "RGB View.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		4BC7E3702763F39200F8A5D7 /* RGB View View.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "RGB View View.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4BC7E3732763F39200F8A5D7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4BC7E3752763F39200F8A5D7 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		4BC7E3772763F39200F8A5D7 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -48,7 +48,7 @@
 		4BC7E3712763F39200F8A5D7 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				4BC7E3702763F39200F8A5D7 /* RGB View.app */,
+				4BC7E3702763F39200F8A5D7 /* RGB View View.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -70,9 +70,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		4BC7E36F2763F39200F8A5D7 /* RGB View */ = {
+		4BC7E36F2763F39200F8A5D7 /* RGB View View */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 4BC7E3842763F39700F8A5D7 /* Build configuration list for PBXNativeTarget "RGB View" */;
+			buildConfigurationList = 4BC7E3842763F39700F8A5D7 /* Build configuration list for PBXNativeTarget "RGB View View" */;
 			buildPhases = (
 				4BC7E36C2763F39200F8A5D7 /* Sources */,
 				4BC7E36D2763F39200F8A5D7 /* Frameworks */,
@@ -82,9 +82,9 @@
 			);
 			dependencies = (
 			);
-			name = "RGB View";
+			name = "RGB View View";
 			productName = "RGB View";
-			productReference = 4BC7E3702763F39200F8A5D7 /* RGB View.app */;
+			productReference = 4BC7E3702763F39200F8A5D7 /* RGB View View.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -115,7 +115,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				4BC7E36F2763F39200F8A5D7 /* RGB View */,
+				4BC7E36F2763F39200F8A5D7 /* RGB View View */,
 			);
 		};
 /* End PBXProject section */
@@ -354,7 +354,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		4BC7E3842763F39700F8A5D7 /* Build configuration list for PBXNativeTarget "RGB View" */ = {
+		4BC7E3842763F39700F8A5D7 /* Build configuration list for PBXNativeTarget "RGB View View" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				4BC7E3852763F39700F8A5D7 /* Debug */,
