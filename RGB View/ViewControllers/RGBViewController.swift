@@ -35,14 +35,9 @@ class RGBViewController: UIViewController {
     coloredView.layer.cornerRadius = 32
   
     setupSlider()
-    
-    redValueLabel.text = String(redSlider.value)
-    greenValueLabel.text = String(greenSlider.value)
-    blueValueLabel.text = String(blueSlider.value)
-    
-    setupSlider()
-    setupView()
+    setupLabel()
     setupTextField()
+    setupView()
   }
   
   // MARK: - IB Actions
@@ -65,6 +60,12 @@ class RGBViewController: UIViewController {
     }
 
   // MARK: - Private Methods
+  private func setupLabel() {
+    redValueLabel.text = roundSliderValue(sliderValue: redSlider.value)
+    greenValueLabel.text = roundSliderValue(sliderValue: greenSlider.value)
+    blueValueLabel.text = roundSliderValue(sliderValue: blueSlider.value)
+  }
+  
   private func setupSlider() {
     redSlider.minimumTrackTintColor = .red
     greenSlider.minimumTrackTintColor = .green
@@ -129,6 +130,7 @@ extension RGBViewController: UITextFieldDelegate {
       blueSlider.value = numberValue
       blueValueLabel.text = roundSliderValue(sliderValue: numberValue)
     }
+    setupView()
   }
   
   override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
