@@ -45,7 +45,26 @@ class RGBViewController: UIViewController {
     setupTextField()
   }
   
-  //MARK: - Private Properties
+  // MARK: - IB Actions
+  @IBAction func slidersAction() {
+    setupView()
+    
+    redValueTextField.text = roundSliderValue(sliderValue: redSlider.value)
+    greenValueTextField.text = roundSliderValue(sliderValue: greenSlider.value)
+    blueValueTextField.text = roundSliderValue(sliderValue: blueSlider.value)
+    
+    redValueLabel.text = roundSliderValue(sliderValue: redSlider.value)
+    greenValueLabel.text = roundSliderValue(sliderValue: greenSlider.value)
+    blueValueLabel.text = roundSliderValue(sliderValue: blueSlider.value)
+    
+  }
+  @IBAction func saveButtonPressed(_ sender: UIButton) {
+    view.endEditing(true)
+    delegate?.setBackgroundColour(redValue: redSlider.value , greenValue: greenSlider.value , blueValue: blueSlider.value)
+    dismiss(animated: true)
+    }
+
+  // MARK: - Private Methods
   private func setupSlider() {
     redSlider.minimumTrackTintColor = .red
     greenSlider.minimumTrackTintColor = .green
@@ -56,9 +75,9 @@ class RGBViewController: UIViewController {
   }
   
   private func setupTextField() {
-    redValueTextField.text = String(round(redSlider.value * 100) / 100)
-    greenValueTextField.text = String(round(greenSlider.value * 100) / 100)
-    blueValueTextField.text = String(round(blueSlider.value * 100) / 100)
+    redValueTextField.text = roundSliderValue(sliderValue: redSlider.value)
+    greenValueTextField.text = roundSliderValue(sliderValue: greenSlider.value)
+    blueValueTextField.text = roundSliderValue(sliderValue: blueSlider.value)
     
     redValueTextField.delegate = self
     greenValueTextField.delegate = self
@@ -78,26 +97,12 @@ class RGBViewController: UIViewController {
     )
   }
   
-  // MARK: - IB Actions
-  @IBAction func slidersAction() {
-    setupView()
-    
-    redValueTextField.text = String(round(redSlider.value * 100) / 100)
-    greenValueTextField.text = String(round(greenSlider.value * 100) / 100)
-    blueValueTextField.text = String(round(blueSlider.value * 100) / 100)
-    
-    redValueLabel.text = String(round(redSlider.value * 100) / 100)
-    greenValueLabel.text = String(round(greenSlider.value * 100) / 100)
-    blueValueLabel.text = String(round(blueSlider.value * 100) / 100)
-    
+  private func roundSliderValue(sliderValue: Float) -> String {
+    return String(round(sliderValue * 100) / 100)
   }
-  @IBAction func saveButtonPressed(_ sender: UIButton) {
-    view.endEditing(true)
-    delegate?.setBackgroundColour(redValue: redSlider.value , greenValue: greenSlider.value , blueValue: blueSlider.value)
-    dismiss(animated: true)
-    }
 }
 
+// MARK: - Extensions
 extension RGBViewController: UITextFieldDelegate {
   func textFieldDidEndEditing(_ textField: UITextField) {
     guard let newValue = textField.text else { return }
@@ -108,15 +113,21 @@ extension RGBViewController: UITextFieldDelegate {
       return
     }
     
+    if (numberValue > 1 || numberValue < 0) {
+      showAlert(title: "Oops!", message: "Invalid value:(");
+      textField.text = "1.0"
+      return
+    }
+    
     if textField == redValueTextField {
       redSlider.value = numberValue
-      redValueLabel.text = String(round(numberValue * 100) / 100)
+      redValueLabel.text = roundSliderValue(sliderValue: numberValue)
     } else if textField == greenValueTextField {
       greenSlider.value = numberValue
-      greenValueLabel.text = String(round(numberValue * 100) / 100)
+      greenValueLabel.text = roundSliderValue(sliderValue: numberValue)
     } else {
       blueSlider.value = numberValue
-      blueValueLabel.text = String(round(numberValue * 100) / 100)
+      blueValueLabel.text = roundSliderValue(sliderValue: numberValue)
     }
   }
   

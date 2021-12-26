@@ -12,5 +12,8 @@ struct Color {
   var greenValue: Float
   var blueValue: Float
   
+  func roundSliderValue(slider: Float) -> String {
+    return String(round(slider * 100) / 100)
+  }
   
 }

@@ -13,14 +13,12 @@ protocol RGBViewControllerDelegate {
 
 class ColorPageViewController: UIViewController {
   
+  // MARK: - Public Properties
   var redValueBackground = CGFloat(1.0)
   var greenValueBackground = CGFloat(1.0)
   var blueValueBackground = CGFloat(1.0)
-
-  override func viewDidLoad() {
-    super.viewDidLoad()
-  }
   
+  // MARK: - Override Methods
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
     guard let rgbVC = segue.destination as? RGBViewController else { return }
     
@@ -28,7 +26,7 @@ class ColorPageViewController: UIViewController {
     rgbVC.backgroundColor = CIColor(color: view.backgroundColor!)
   }
 }
-
+  // MARK: - Private Methods
 extension ColorPageViewController: RGBViewControllerDelegate {
   func setBackgroundColour(redValue: Float, greenValue: Float, blueValue: Float) {
     redValueBackground = CGFloat(redValue)
