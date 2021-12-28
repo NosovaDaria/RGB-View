@@ -25,129 +25,156 @@ class RGBViewController: UIViewController {
   @IBOutlet var greenValueTextField: UITextField!
   @IBOutlet var blueValueTextField: UITextField!
     
+  // MARK: - Public Properties
   var delegate: RGBViewControllerDelegate!
-  var backgroundColor: CIColor!
+  var viewColor: UIColor!
   
-  // MARK: - Life Cycles Methods
+
   override func viewDidLoad() {
     super.viewDidLoad()
     
     coloredView.layer.cornerRadius = 32
-  
-    setupSlider()
-    setupLabel()
-    setupTextField()
-    setupView()
-  }
-  
-  // MARK: - IB Actions
-  @IBAction func slidersAction() {
-    setupView()
     
-    redValueTextField.text = roundSliderValue(sliderValue: redSlider.value)
-    greenValueTextField.text = roundSliderValue(sliderValue: greenSlider.value)
-    blueValueTextField.text = roundSliderValue(sliderValue: blueSlider.value)
-    
-    redValueLabel.text = roundSliderValue(sliderValue: redSlider.value)
-    greenValueLabel.text = roundSliderValue(sliderValue: greenSlider.value)
-    blueValueLabel.text = roundSliderValue(sliderValue: blueSlider.value)
-    
-  }
-  @IBAction func saveButtonPressed(_ sender: UIButton) {
-    view.endEditing(true)
-    delegate?.setBackgroundColour(redValue: redSlider.value , greenValue: greenSlider.value , blueValue: blueSlider.value)
-    dismiss(animated: true)
-    }
-
-  // MARK: - Private Methods
-  private func setupLabel() {
-    redValueLabel.text = roundSliderValue(sliderValue: redSlider.value)
-    greenValueLabel.text = roundSliderValue(sliderValue: greenSlider.value)
-    blueValueLabel.text = roundSliderValue(sliderValue: blueSlider.value)
-  }
-  
-  private func setupSlider() {
     redSlider.minimumTrackTintColor = .red
     greenSlider.minimumTrackTintColor = .green
     
-    redSlider.value = Float(backgroundColor.red)
-    greenSlider.value = Float(backgroundColor.green)
-    blueSlider.value = Float(backgroundColor.blue)
+    coloredView.backgroundColor = viewColor
+  
+    setupSlider()
+    setValue(for: redValueLabel, greenValueLabel, blueValueLabel)
+    setValue(for: redValueTextField, greenValueTextField, blueValueTextField)
   }
   
-  private func setupTextField() {
-    redValueTextField.text = roundSliderValue(sliderValue: redSlider.value)
-    greenValueTextField.text = roundSliderValue(sliderValue: greenSlider.value)
-    blueValueTextField.text = roundSliderValue(sliderValue: blueSlider.value)
+  // MARK: - IB Actions
+  @IBAction func slidersAction(_ sender: UISlider) {
     
-    redValueTextField.delegate = self
-    greenValueTextField.delegate = self
-    blueValueTextField.delegate = self
+    switch sender {
+    case redSlider:
+      setValue(for: redValueLabel)
+      setValue(for: redValueTextField)
+    case greenSlider:
+      setValue(for: greenValueLabel)
+      setValue(for: greenValueTextField)
+    default:
+      setValue(for: greenValueLabel)
+      setValue(for: greenValueTextField)
+    }
+    
+    setColor()
   }
   
-  private func setupView() {
-    let redSliderValue = CGFloat(redSlider.value)
-    let greenSliderValue = CGFloat(greenSlider.value)
-    let blueSliderValue = CGFloat(blueSlider.value)
-    
-    coloredView.backgroundColor = UIColor (
-      red: redSliderValue,
-      green: greenSliderValue,
-      blue: blueSliderValue,
-      alpha: 1.0
+  @IBAction func saveButtonPressed() {
+    delegate?.setColour(coloredView.backgroundColor ?? .white)
+    dismiss(animated: true)
+    }
+}
+
+  // MARK: - Private Methods
+extension RGBViewController {
+  
+  private func setColor() {
+    coloredView.backgroundColor = UIColor(
+      red: CGFloat(redSlider.value),
+      green: CGFloat(greenSlider.value),
+      blue: CGFloat(blueSlider.value),
+      alpha: 1
     )
   }
   
-  private func roundSliderValue(sliderValue: Float) -> String {
-    return String(round(sliderValue * 100) / 100)
+  private func setValue(for labels: UILabel...) {
+    labels.forEach { label in
+      switch label {
+      case redValueLabel: label.text = string(from: redSlider)
+      case greenValueLabel: label.text = string(from: greenSlider)
+      default: label.text = string(from: blueSlider)
+      }
+    }
   }
+  
+  private func setValue(for textFields: UITextField...) {
+    textFields.forEach { textField in
+      switch textField {
+      case redValueTextField: textField.text = string(from: redSlider)
+      case greenValueTextField: textField.text = string(from: greenSlider)
+      default: textField.text = string(from: blueSlider)
+      }
+    }
+  }
+  
+  private func setupSlider() {
+    let ciColor = CIColor(color: viewColor)
+    redSlider.value = Float(ciColor.red)
+    greenSlider.value = Float(ciColor.green)
+    blueSlider.value = Float(ciColor.blue)
+  }
+  
+  private func string(from slider: UISlider) -> String {
+    String(format: "%.2f", slider.value)
+  }
+  
+  @objc private func didTapDone() {
+    view.endEditing(true)
+  }
+  
+  private func showAlert(title: String, message: String) {
+    let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+    let okAction = UIAlertAction(title: "OK", style: .default)
+    alert.addAction(okAction)
+    present(alert, animated: true)
+  }
+  
 }
 
 // MARK: - Extensions
 extension RGBViewController: UITextFieldDelegate {
-  func textFieldDidEndEditing(_ textField: UITextField) {
-    guard let newValue = textField.text else { return }
-
-    guard let numberValue = Float(newValue) else {
-      showAlert(title: "Oops!", message: "Invalid value:(");
-      textField.text = "1.0"
-      return
-    }
-    
-    if (numberValue > 1 || numberValue < 0) {
-      showAlert(title: "Oops!", message: "Invalid value:(");
-      textField.text = "1.0"
-      return
-    }
-    
-    if textField == redValueTextField {
-      redSlider.value = numberValue
-      redValueLabel.text = roundSliderValue(sliderValue: numberValue)
-    } else if textField == greenValueTextField {
-      greenSlider.value = numberValue
-      greenValueLabel.text = roundSliderValue(sliderValue: numberValue)
-    } else {
-      blueSlider.value = numberValue
-      blueValueLabel.text = roundSliderValue(sliderValue: numberValue)
-    }
-    setupView()
-  }
   
   override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
     super.touchesBegan(touches, with: event)
-    redValueTextField.endEditing(true)
-    greenValueTextField.endEditing(true)
-    blueValueTextField.endEditing(true)
+    view.endEditing(true)
   }
-}
-
-extension RGBViewController {
-  private func showAlert(title: String, message: String, textField: UITextField? = nil) {
-    let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-    let okAction = UIAlertAction(title: "OK", style: .default) { _ in
-      textField?.text = ""
+  
+  func textFieldDidEndEditing(_ textField: UITextField) {
+    print(1)
+    guard let newValue = textField.text else { return }
+    print(2)
+    if let currentValue = Float(newValue) {
+      print(3)
+      switch textField {
+      case redValueTextField:
+        redSlider.setValue(currentValue, animated: true)
+        setValue(for: redValueLabel)
+      case greenValueTextField:
+        greenSlider.setValue(currentValue, animated: true)
+        setValue(for: greenValueLabel)
+      default:
+        blueSlider.setValue(currentValue, animated: true)
+        setValue(for: blueValueLabel)
+      }
+      
+      setColor()
+      return
     }
-    alert.addAction(okAction)
-    present(alert, animated: true)
+    
+    showAlert(title: "Wrong format!", message: "Please enter correct value")
   }
+  
+  func textFieldDidBeginEditing(_ textField: UITextField) {
+    let keyboardToolbar = UIToolbar()
+    keyboardToolbar.sizeToFit()
+    textField.inputAccessoryView = keyboardToolbar
+    
+    let doneButton = UIBarButtonItem(
+      barButtonSystemItem: .done,
+      target: self,
+      action: #selector(didTapDone)
+    )
+    
+    let flexBarButton = UIBarButtonItem(
+      barButtonSystemItem: .flexibleSpace,
+      target: nil,
+      action: nil)
+    
+    keyboardToolbar.items = [flexBarButton, doneButton]
+  }
+  
 }

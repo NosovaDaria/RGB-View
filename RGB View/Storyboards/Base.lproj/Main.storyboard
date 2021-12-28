@@ -20,7 +20,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="awl-B1-Ps4">
                         <barButtonItem key="rightBarButtonItem" title="Item" image="square.and.pencil" catalog="system" id="LXa-Dn-aji">
-                            <color key="tintColor" red="0.18823529411764706" green="0.27843137254901962" blue="0.36862745098039218" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="tintColor" red="0.0" green="0.3294117647" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
                                 <segue destination="BYZ-38-t0r" kind="presentation" modalPresentationStyle="fullScreen" id="5Qi-T7-Ybm"/>
                             </connections>
@@ -100,22 +100,19 @@
                                             <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="G4a-R3-ce0">
                                                 <rect key="frame" x="-2" y="0.0" width="193" height="35"/>
                                                 <connections>
-                                                    <action selector="redSlider" destination="BYZ-38-t0r" eventType="valueChanged" id="I9U-xE-eVn"/>
-                                                    <action selector="slidersAction" destination="BYZ-38-t0r" eventType="valueChanged" id="tlx-4H-9mh"/>
+                                                    <action selector="slidersAction:" destination="BYZ-38-t0r" eventType="valueChanged" id="Dej-pW-5Lz"/>
                                                 </connections>
                                             </slider>
                                             <slider opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="u2u-io-ZGS">
                                                 <rect key="frame" x="-2" y="54" width="193" height="35"/>
                                                 <connections>
-                                                    <action selector="greenSlider" destination="BYZ-38-t0r" eventType="valueChanged" id="52c-N1-il8"/>
-                                                    <action selector="slidersAction" destination="BYZ-38-t0r" eventType="valueChanged" id="KRo-Hi-8Gc"/>
+                                                    <action selector="slidersAction:" destination="BYZ-38-t0r" eventType="valueChanged" id="8Lr-nE-Z5Z"/>
                                                 </connections>
                                             </slider>
                                             <slider opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="R06-qx-QBI">
                                                 <rect key="frame" x="-2" y="108" width="193" height="35"/>
                                                 <connections>
-                                                    <action selector="blueSlider" destination="BYZ-38-t0r" eventType="valueChanged" id="4jN-7R-BrU"/>
-                                                    <action selector="slidersAction" destination="BYZ-38-t0r" eventType="valueChanged" id="jHW-qS-4qL"/>
+                                                    <action selector="slidersAction:" destination="BYZ-38-t0r" eventType="valueChanged" id="vRt-vw-s37"/>
                                                 </connections>
                                             </slider>
                                         </subviews>
@@ -127,13 +124,19 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="46" height="34"/>
                                                 <color key="textColor" red="0.070588235289999995" green="0.070588235289999995" blue="0.070588235289999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                <textInputTraits key="textInputTraits"/>
+                                                <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation"/>
+                                                <connections>
+                                                    <outlet property="delegate" destination="BYZ-38-t0r" id="F2T-nU-8yP"/>
+                                                </connections>
                                             </textField>
                                             <textField opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="SNM-DJ-D6i">
                                                 <rect key="frame" x="0.0" y="54" width="46" height="34"/>
                                                 <color key="textColor" red="0.070588235289999995" green="0.070588235289999995" blue="0.070588235289999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                <textInputTraits key="textInputTraits"/>
+                                                <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation"/>
+                                                <connections>
+                                                    <outlet property="delegate" destination="BYZ-38-t0r" id="PBx-js-eeU"/>
+                                                </connections>
                                             </textField>
                                             <textField opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="698-yp-vpo">
                                                 <rect key="frame" x="0.0" y="108" width="46" height="34"/>
@@ -142,7 +145,10 @@
                                                 </constraints>
                                                 <color key="textColor" red="0.070588235289999995" green="0.070588235289999995" blue="0.070588235289999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                <textInputTraits key="textInputTraits"/>
+                                                <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation"/>
+                                                <connections>
+                                                    <outlet property="delegate" destination="BYZ-38-t0r" id="Cus-6V-0m2"/>
+                                                </connections>
                                             </textField>
                                         </subviews>
                                         <constraints>
@@ -166,7 +172,7 @@
                                     <fontDescription key="titleFontDescription" type="boldSystem" pointSize="20"/>
                                 </buttonConfiguration>
                                 <connections>
-                                    <action selector="saveButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="NZL-he-h00"/>
+                                    <action selector="saveButtonPressed" destination="BYZ-38-t0r" eventType="touchUpInside" id="613-ta-q2m"/>
                                 </connections>
                             </button>
                         </subviews>
