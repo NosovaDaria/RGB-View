@@ -56,8 +56,8 @@ class RGBViewController: UIViewController {
       setValue(for: greenValueLabel)
       setValue(for: greenValueTextField)
     default:
-      setValue(for: greenValueLabel)
-      setValue(for: greenValueTextField)
+      setValue(for: blueValueLabel)
+      setValue(for: blueValueTextField)
     }
     
     setColor()
@@ -134,11 +134,9 @@ extension RGBViewController: UITextFieldDelegate {
   }
   
   func textFieldDidEndEditing(_ textField: UITextField) {
-    print(1)
+    
     guard let newValue = textField.text else { return }
-    print(2)
     if let currentValue = Float(newValue) {
-      print(3)
       switch textField {
       case redValueTextField:
         redSlider.setValue(currentValue, animated: true)
